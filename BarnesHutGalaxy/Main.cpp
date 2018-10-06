@@ -1,20 +1,21 @@
 #include <iostream>
-#include <random>
-#include <functional>
 
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
-#include "glm/glm.hpp"
-
-#include "UniverseDisplay.h"
+#include "UniverseSim.h"
 
 //==================================================================================================
 // MAIN
+
 int main()
 {
-	UniverseDisplay universeDisplay( 1000, 1000, 2, 250);
+	UniverseSim universeSim( 
+		1000,					// WIDTH
+		1000,					// HEIGHT
+		0.5,					// GALAXY RADIUS
+		1,						// NUMBER OF GALAXIES 
+		2500					// NUMBER OF STARS PER GALAXY
+	);
 
-	universeDisplay.startLoop();
+	universeSim.startLoop();
 
 	return 0;
 }

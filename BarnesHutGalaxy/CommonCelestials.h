@@ -21,8 +21,7 @@ struct Star
 
 struct Galaxy
 {
-	GLuint numberOfStars;
-	GLfloat galaxyRadius;
-	glm::vec3 galaxyCenter;
+	GLfloat radius;
+	glm::vec3 center;
 	glm::vec3 colour;
 };

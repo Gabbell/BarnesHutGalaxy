@@ -2,16 +2,19 @@
 
 #include <vector>
 
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+
 #include "Universe.h"
 #include "Mesh.h"
 
 class Shader;
 
-class UniverseDisplay
+class UniverseSim
 {
 public:
-	UniverseDisplay(GLuint width, GLuint height, GLuint numberOfGalaxies, GLuint numberOfStars);
-	~UniverseDisplay();
+	UniverseSim(GLuint width, GLuint height, GLfloat galaxyRadius, GLuint numberOfGalaxies, GLuint numberOfStars);
+	~UniverseSim();
 
 	void startLoop();
 

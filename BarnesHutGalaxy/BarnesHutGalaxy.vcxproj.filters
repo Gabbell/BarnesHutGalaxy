@@ -33,7 +33,10 @@
     <ClCompile Include="Universe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UniverseDisplay.cpp">
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UniverseSim.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,10 +56,16 @@
     <ClInclude Include="Universe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UniverseDisplay.h">
+    <ClInclude Include="CommonCelestials.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CommonCelestials.h">
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadSafeQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UniverseSim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@
 
 static constexpr double THETA = 1.0;
 static constexpr double GRAVITATIONAL_CONSTANT = 6.67408e-11;
-static constexpr double SOFTENER = 0.1*0.1;
+static constexpr double SOFTENER = 0.1;
 
 QuadTreeNode::QuadTreeNode(const glm::vec3& min, const glm::vec3& max, QuadTreeNode* parent)
 	: _min(min)
@@ -169,7 +169,7 @@ glm::vec3 QuadTreeNode::calcTreeForce(const Star* const star)
 	else
 	{
 		glm::vec3 difference = _centerOfMass - star->position;
-		double distance = glm::length(difference) + 0.0000001;
+		double distance = glm::length(difference) + SOFTENER;
 		double nodeWidth = _max.x - _min.x;
 
 		if (nodeWidth / distance <= THETA)
@@ -216,7 +216,7 @@ void QuadTreeNode::insertStar(Star* const star)
 		if (star->position == _star->position)
 		{
 			// Two particles are at the same position. This is bad
-			assert(false);
+			// assert(false);
 			//s_renegades.push_back(newParticle);
 		}
 		else

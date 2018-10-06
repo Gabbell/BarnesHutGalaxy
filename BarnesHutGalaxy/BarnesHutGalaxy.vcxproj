@@ -136,7 +136,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="UniverseDisplay.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
+    <ClCompile Include="UniverseSim.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="QuadTree.cpp" />
@@ -146,7 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonCelestials.h" />
-    <ClInclude Include="UniverseDisplay.h" />
+    <ClInclude Include="ThreadPool.h" />
+    <ClInclude Include="ThreadSafeQueue.h" />
+    <ClInclude Include="UniverseSim.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Shader.h" />

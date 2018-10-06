@@ -1,11 +1,9 @@
 #include <iostream>
 #include <array>
 
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
 #include "glm/glm.hpp"
 
-#include "UniverseDisplay.h"
+#include "UniverseSim.h"
 #include "Shader.h"
 #include "Mesh.h"
 
@@ -41,8 +39,8 @@ void window_size_callback(GLFWwindow* _window, int width, int height)
 //==================================================================================================
 // CLASS FUNCTIONS
 
-UniverseDisplay::UniverseDisplay(GLuint width, GLuint height, GLuint numberOfGalaxies, GLuint numberOfStars )
-	: _width(width), _height(height), _universe(numberOfGalaxies, numberOfStars)
+UniverseSim::UniverseSim(GLuint width, GLuint height, GLfloat galaxyRadius, GLuint numberOfGalaxies, GLuint numberOfStars )
+	: _width(width), _height(height), _universe(numberOfGalaxies, galaxyRadius, numberOfStars)
 {
 	// Init GLFW
 	glfwInit();
@@ -53,7 +51,7 @@ UniverseDisplay::UniverseDisplay(GLuint width, GLuint height, GLuint numberOfGal
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	std::cout << "Status: Using GLFW " << glfwGetVersionString() << std::endl;
 
-	//GLFW init
+	// GLFW init
 	_window = glfwCreateWindow(width, height, "Barnes-Hut Galaxy Simulator 1", nullptr, nullptr);
 	if (_window == nullptr) {
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -81,6 +79,7 @@ UniverseDisplay::UniverseDisplay(GLuint width, GLuint height, GLuint numberOfGal
 	glfwSetWindowSizeCallback(_window, window_size_callback);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_PRIMITIVE_RESTART);
 	glPrimitiveRestartIndex(PRIMITIVE_RESTART);
 
@@ -90,7 +89,7 @@ UniverseDisplay::UniverseDisplay(GLuint width, GLuint height, GLuint numberOfGal
 	_galaxyShader->setUint( "numberOfStars", numberOfStars);
 }
 
-void UniverseDisplay::startLoop()
+void UniverseSim::startLoop()
 {
 	// Game Loop
 	GLuint frames = 0;
@@ -124,7 +123,7 @@ void UniverseDisplay::startLoop()
 	}
 }
 
-void UniverseDisplay::render(GLfloat delta)
+void UniverseSim::render(GLfloat delta)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -163,7 +162,7 @@ void UniverseDisplay::render(GLfloat delta)
 #endif
 }
 
-UniverseDisplay::~UniverseDisplay()
+UniverseSim::~UniverseSim()
 {
 	delete _galaxyShader;
 }
