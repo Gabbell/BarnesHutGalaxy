@@ -20,14 +20,14 @@ void ThreadPool::ThreadWorker::operator()()
 		}
 	}
 }
-ThreadPool::ThreadPool(const int numberOfThreads)
-	:_threads(std::vector<std::thread>(numberOfThreads))
-	, _shutdown(false)
+ThreadPool::ThreadPool()
+	: _shutdown(false)
 {
 }
 
-void ThreadPool::init()
+void ThreadPool::init(int numberOfThreads)
 {
+	_threads.resize(numberOfThreads);
 	for (int i = 0; i < _threads.size(); i++)
 	{
 		_threads[i] = std::thread(ThreadWorker(this, i));
@@ -43,4 +43,9 @@ void ThreadPool::shutdown() {
 			_threads[i].join();
 		}
 	}
+}
+
+ThreadPool::~ThreadPool()
+{
+	shutdown();
 }

@@ -2,13 +2,8 @@
 
 #include <vector>
 
-#include "CommonCelestials.h"
+#include "Galaxy.h"
 #include "ThreadPool.h"
-
-//#define DRAW_QUADTREE
-
-// Adds one supermassive star per galaxy at its center
-//#define ADD_BLACK_HOLE
 
 class QuadTreeNode;
 
@@ -25,18 +20,9 @@ public:
 
 private:
 
-	void buildTree();
-
-	GLuint _numberOfGalaxies;
-	GLfloat _galaxyRadius;
+	GLuint _numberOfGalaxies;		// Total number of galaxies
 	std::vector<Galaxy> _galaxies;
 
-	GLuint _numberOfStars;
-	std::vector<Star> _stars;
-
-	QuadTreeNode* _root;
 	std::vector<glm::vec3> _quadTreeVerts;
-
-	ThreadPool _threadPool;
 };
 

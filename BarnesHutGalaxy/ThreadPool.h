@@ -9,17 +9,22 @@
 class ThreadPool
 {
 public:
-	ThreadPool(const int numberOfThreads);
+	ThreadPool();
 
 	ThreadPool(const ThreadPool&) = delete;
 	ThreadPool(ThreadPool&&) = delete;
 	ThreadPool& operator=(const ThreadPool&) = delete;
 	ThreadPool& operator=(ThreadPool&&) = delete;
+	~ThreadPool();
 
-	~ThreadPool() = default;
+	static ThreadPool& Instance()
+	{
+		static ThreadPool singleton;
+		return singleton;
+	}
 
 	// Initialize or shutdown the threadpool
-	void init();
+	void init(int numberOfThreads);
 	void shutdown();
 
 	// Submit work to the threadpool
@@ -52,7 +57,6 @@ private:
 		int _threadIdx;
 		ThreadPool* _threadPool;
 	};
-
 
 	bool _shutdown;
 	std::condition_variable _conditionalLock;
