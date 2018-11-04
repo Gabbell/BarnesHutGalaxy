@@ -10,9 +10,9 @@
 #include "tbb/parallel_for_each.h"
 #endif
 
-static constexpr GLfloat PARTICLE_MASS = 1.0e5;
+static constexpr GLfloat PARTICLE_MASS = 1.0e4;
 static constexpr GLfloat BLACK_HOLE_MASS = 1.0e8;
-static constexpr GLfloat INITIAL_SPIN_FACTOR = 0.0f;
+static constexpr GLfloat INITIAL_SPIN_FACTOR = 0.1f;
 
 float float_rand(float min, float max)
 {
@@ -67,7 +67,7 @@ void Galaxy::initStars(GLuint numberOfStars)
 		glm::mat4 spinMat(1.0f);
 		glm::vec4 spinVec(displacementX, displacementY, 0.0f, 0.0f);
 		spinMat = glm::rotate(spinMat, glm::radians(-90.0f), { 0.0f, 0.0f, 1.0f });
-		spinVec = INITIAL_SPIN_FACTOR * (spinMat * spinVec);
+		spinVec = (_radius*(1/r)) * INITIAL_SPIN_FACTOR * (spinMat * spinVec);
 
 		_stars.push_back({
 			PARTICLE_MASS,
@@ -77,7 +77,7 @@ void Galaxy::initStars(GLuint numberOfStars)
 	}
 
 #ifdef ADD_BLACK_HOLE
-	_stars.push_back({ BLACK_HOLE_MASS,{ galaxy.center.x, galaxy.center.y, 0.0f } });
+	_stars.push_back({ BLACK_HOLE_MASS,{ _center.x, _center.y, 0.0f } });
 #endif
 }
 

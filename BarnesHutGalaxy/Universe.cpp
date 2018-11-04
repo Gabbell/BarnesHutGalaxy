@@ -1,8 +1,13 @@
 #include "QuadTree.h"
 #include "Universe.h"
 
+#include <ctime>
+
 #include "glm/glm.hpp"
 
+#ifdef MT_IMP
+#include "ThreadPool.h"
+#endif
 #ifdef TBB_IMP
 #include "tbb/task_scheduler_init.h"
 #include "tbb/parallel_for_each.h"
@@ -13,7 +18,7 @@ Universe::Universe( GLuint numberOfGalaxies, GLfloat galaxyRadius, GLuint number
 {
 
 #ifdef TBB_IMP
-	//tbb::task_scheduler_init init(NUMBER_OF_THREADS);
+	tbb::task_scheduler_init init(NUMBER_OF_THREADS);
 #endif
 
 #ifdef MT_IMP

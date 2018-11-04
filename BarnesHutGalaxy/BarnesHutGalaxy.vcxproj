@@ -23,7 +23,7 @@
     <ProjectGuid>{5786F1D8-C87F-43A7-AD7D-44959421DF45}</ProjectGuid>
     <RootNamespace>BarnesHutGalaxy</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <ProjectName>BarnesHutGalaxy1</ProjectName>
+    <ProjectName>BarnesHutTP-TBB</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -155,7 +155,6 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Universe.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +166,6 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="Transform.h" />
     <ClInclude Include="Universe.h" />
   </ItemGroup>
   <ItemGroup>

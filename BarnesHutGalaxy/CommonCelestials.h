@@ -6,13 +6,13 @@
 //#define DRAW_QUADTREE
 
 // Adds one supermassive star per galaxy at its center
-//#define ADD_BLACK_HOLE
+#define ADD_BLACK_HOLE
 
 //Have only one of these at one time
-//#define MT_IMP
-#define TBB_IMP
+#define MT_IMP
+//#define TBB_IMP
 
-static constexpr int NUMBER_OF_THREADS = 32;
+static constexpr int NUMBER_OF_THREADS = 300;
 
 struct Rect
 {
