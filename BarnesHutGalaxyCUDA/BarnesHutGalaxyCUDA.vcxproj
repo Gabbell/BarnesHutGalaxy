@@ -84,10 +84,14 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CommonCelestials.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="cuda_computes.cuh" />
     <ClInclude Include="Galaxy.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="Universe.h" />
     <ClInclude Include="UniverseSim.h" />
   </ItemGroup>
@@ -95,9 +99,13 @@
     <ClCompile Include="Galaxy.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <CudaCompile Include="Universe.cu" />
+    <CudaCompile Include="Universe.cpp" />
     <ClCompile Include="UniverseSim.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="cuda_computes.cu" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

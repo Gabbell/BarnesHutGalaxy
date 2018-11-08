@@ -1,8 +1,6 @@
 #include <iostream>
 #include <array>
 
-#include "glm/glm.hpp"
-
 #include "UniverseSim.h"
 #include "Shader.h"
 #include "Mesh.h"
@@ -39,7 +37,7 @@ void window_size_callback(GLFWwindow* _window, int width, int height)
 //==================================================================================================
 // CLASS FUNCTIONS
 
-UniverseSim::UniverseSim(GLuint width, GLuint height, GLfloat galaxyRadius, GLuint numberOfGalaxies, GLuint numberOfStars )
+UniverseSim::UniverseSim(uint32 width, uint32 height, float32 galaxyRadius, uint32 numberOfGalaxies, uint32 numberOfStars )
 	: _width(width), _height(height), _universe(numberOfGalaxies, galaxyRadius, numberOfStars)
 {
 	// Init GLFW
@@ -92,10 +90,10 @@ UniverseSim::UniverseSim(GLuint width, GLuint height, GLfloat galaxyRadius, GLui
 void UniverseSim::startLoop()
 {
 	// Game Loop
-	GLuint frames = 0;
-	GLfloat counter = 0;
-	GLfloat delta = 0;
-	GLfloat currentTime = 0;
+	uint32 frames = 0;
+	float32 counter = 0;
+	float32 delta = 0;
+	float32 currentTime = 0;
 
 	while (!glfwWindowShouldClose(_window))
 	{
@@ -123,7 +121,7 @@ void UniverseSim::startLoop()
 	}
 }
 
-void UniverseSim::render(GLfloat delta)
+void UniverseSim::render(float32 delta)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -138,11 +136,11 @@ void UniverseSim::render(GLfloat delta)
 	glBindVertexArray(0);
 
 #ifdef DRAW_QUADTREE
-	std::vector<GLuint> indices;
+	std::vector<uint32> indices;
 	std::vector<glm::vec3> vertices = _universe.getQuadTreeVerts();
 
 	// Indices generation
-	for (GLuint i = 0; i < vertices.size(); i += 4)
+	for (uint32 i = 0; i < vertices.size(); i += 4)
 	{
 		indices.push_back(i);
 		indices.push_back(i+1);

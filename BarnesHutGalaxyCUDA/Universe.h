@@ -1,15 +1,18 @@
 #pragma once
 
+#include "Galaxy.h"
+#include "Types.h"
+
 #include <vector>
 
-#include "Galaxy.h"
+#include "glm/glm.hpp"
 
 class QuadTreeNode;
 
 class Universe
 {
 public:
-	Universe( GLuint numberOfGalaxies, GLfloat galaxyRadius, GLuint numberOfStars );
+	Universe(uint32 numberOfGalaxies, float32 galaxyRadius, uint32 numberOfStars);
 	~Universe();
 
 	void step(float deltaTime);
@@ -18,20 +21,23 @@ public:
 	std::vector<glm::vec3> getQuadTreeVerts() const { return _quadTreeVerts; }
 
 private:
-	GLuint _numberOfGalaxies;		// Total number of galaxies
-	GLuint _numberOfStars;			// Number of stars per galaxy
-	GLuint _totalStars;
-	std::vector<Galaxy> _galaxies;
+	uint32 _numberOfGalaxies;		// Total number of galaxies
+	uint32 _numberOfStars;			// Number of stars per galaxy
+	uint32 _totalStars;				// Total number of stars in the universe
+	uint32 _numberOfNodes;			// Max number of nodes in the quadtree
 
-	//Host
+	std::vector<Galaxy> _galaxies;
+	
+	// QuadTree
+	QuadTreeNode* _root;
+	std::vector<glm::vec3> _quadTreeVerts;
+
+	// Host
 	std::vector<Star> _stars;
 
-	//Device
-	Star* _dinStars;
-	Star* _doutStars;
+	// Device
+	Star* _dStars;
+	Node* _dNodes;
 
-	QuadTreeNode* _root;
-
-	std::vector<glm::vec3> _quadTreeVerts;
 };
 

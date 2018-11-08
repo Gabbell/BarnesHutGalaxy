@@ -1,9 +1,8 @@
-#include "cuda_runtime.h"
+#include "UniverseSim.h"
 
 #include <iostream>
 
-#include "UniverseSim.h"
-
+#include "cuda_runtime.h"
 //==================================================================================================
 // MAIN
 
@@ -12,8 +11,8 @@ int main()
 	UniverseSim universeSim( 
 		1000,					// WIDTH
 		1000,					// HEIGHT
-		0.5,					// GALAXY RADIUS
-		2,						// NUMBER OF GALAXIES 
+		1.0,					// GALAXY RADIUS
+		1,						// NUMBER OF GALAXIES 
 		5000					// NUMBER OF STARS PER GALAXY
 	);
 

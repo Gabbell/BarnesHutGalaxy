@@ -13,13 +13,13 @@ class Shader;
 class UniverseSim
 {
 public:
-	UniverseSim(GLuint width, GLuint height, GLfloat galaxyRadius, GLuint numberOfGalaxies, GLuint numberOfStars);
+	UniverseSim(uint32 width, uint32 height, float32 galaxyRadius, uint32 numberOfGalaxies, uint32 numberOfStars);
 	~UniverseSim();
 
 	void startLoop();
 
 private:
-	void render(GLfloat delta);
+	void render(float32 delta);
 
 	Universe _universe;
 

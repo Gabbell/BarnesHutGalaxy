@@ -10,9 +10,9 @@
 #include "tbb/parallel_for_each.h"
 #endif
 
-static constexpr GLfloat PARTICLE_MASS = 1.0e4;
+static constexpr GLfloat PARTICLE_MASS = 1.0e5;
 static constexpr GLfloat BLACK_HOLE_MASS = 1.0e8;
-static constexpr GLfloat INITIAL_SPIN_FACTOR = 0.1f;
+static constexpr GLfloat INITIAL_SPIN_FACTOR = 0.0f;
 
 float float_rand(float min, float max)
 {

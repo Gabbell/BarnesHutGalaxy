@@ -1,17 +1,16 @@
 #pragma once
 
-#include "CommonCelestials.h"
-
-#include "glm/glm.hpp"
+#include "Common.h"
+#include "Types.h"
 
 struct Galaxy
 {
 	Galaxy() = default;
-	Galaxy(GLfloat radius, glm::vec3 center);
+	Galaxy(float32 radius, float3 center);
 	~Galaxy() = default;
 
-	GLfloat radius;
-	glm::vec3 center;
-	glm::vec3 colour;
+	float32 radius;
+	float3 center;
+	float3 colour;
 };
 

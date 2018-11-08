@@ -1,6 +1,6 @@
 #include "Galaxy.h"
 
-Galaxy::Galaxy( GLfloat radius, glm::vec3 center )
+Galaxy::Galaxy( float32 radius, float3 center )
 	:radius(radius), center(center)
 {
 }
