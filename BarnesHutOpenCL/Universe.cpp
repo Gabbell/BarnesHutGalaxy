@@ -29,14 +29,14 @@ Universe::Universe(uint32 numberOfGalaxies, float32 galaxyRadius, uint32 numberO
 	for (auto& galaxy : _galaxies)
 	{
 		galaxy.radius = galaxyRadius;
-		galaxy.center = {float_rand(-1,1), float_rand(-1,1), 0.0f};
-		//galaxy.center = { 0.0f,0.0f,0.0f };
+		//galaxy.center = {float_rand(-1,1), float_rand(-1,1), 0.0f};
+		galaxy.center = { 0.0f,0.0f,0.0f };
 		
 		for (uint32 i = 0; i < _numberOfStars; i++)
 		{
 			float a = float_rand(0, 1) * 2 * M_PI;
 			float r = galaxy.radius * sqrt(float_rand(0, 1));
-
+			
 			float displacementX = r * cos(a);
 			float displacementY = r * sin(a);
 
@@ -47,7 +47,7 @@ Universe::Universe(uint32 numberOfGalaxies, float32 galaxyRadius, uint32 numberO
 
 			_stars.push_back({
 				{galaxy.center.x + displacementX, galaxy.center.y + displacementY, 0.0f, 0.0f},
-				{spinVec.x, spinVec.y, spinVec.z},
+				{0.0f, 0.0f ,0.0f},
 				{0.0f, 0.0f, 0.0f},
 				PARTICLE_MASS,
 				starIndex++
