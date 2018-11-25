@@ -21,21 +21,6 @@ struct Node
 
 struct Star
 {
-	Star(uint32 id)
-		: id(id)
-		, mass(PARTICLE_MASS)
-		, position({ 0.0f,0.0f,0.0f })
-		, velocity({ 0.0f,0.0f,0.0f })
-		, acceleration({ 0.0f,0.0f,0.0f })
-	{}
-	Star(uint32 id, float mass, float3 position, float3 velocity, float3 acceleration)
-		: id(id)
-		, mass(mass)
-		, position(position)
-		, velocity(velocity)
-		, acceleration(acceleration)
-	{}
-
 	uint32 id;
 	float mass;
 	float3 position;

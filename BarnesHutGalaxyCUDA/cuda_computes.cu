@@ -8,8 +8,8 @@
 __global__ void computeForce(Star* stars, Node* tree, float cellRadius, int numberOfStars)
 {
 	// One stack per thread block
-	__shared__ float depth[(MAXDEPTH * BLOCKSIZE) / WARPSIZE];
-	__shared__ int stack[(MAXDEPTH * BLOCKSIZE) / WARPSIZE];
+	__shared__ float depth[MAXDEPTH * BLOCKSIZE / WARPSIZE];
+	__shared__ int stack[MAXDEPTH * BLOCKSIZE / WARPSIZE];
 
 	// Equivalent index in the array based on block size and current work thread
 	const int warpGroupIdx = threadIdx.x / warpSize;
@@ -63,7 +63,8 @@ __global__ void computeForce(Star* stars, Node* tree, float cellRadius, int numb
 
 				if (childIdx > -1)
 				{
-					float3 difference = tree[childIdx].centerOfMass - pos;
+					float3 com = tree[childIdx].centerOfMass;
+					float3 difference = com - pos;
 					double squaredDist = dot(difference, difference) + SOFTENER;
 
 					// Compute acceleration if leaf node or meets the criterion

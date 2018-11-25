@@ -25,13 +25,14 @@ Universe::Universe(uint32 numberOfGalaxies, float32 galaxyRadius, uint32 numberO
 
 	// Generating universe
 	uint32 starIndex = 0;
+	_stars.reserve(_totalStars);
+
 	for (auto& galaxy : _galaxies)
 	{
 		galaxy.radius = galaxyRadius;
-		//galaxy.center = {float_rand(-1,1), float_rand(-1,1), 0.0f};
-		galaxy.center = { 0.0f,0.0f,0.0f };
+		galaxy.center = {float_rand(-1,1), float_rand(-1,1), 0.0f};
+		//galaxy.center = { 0.0f,0.0f,0.0f };
 
-		_stars.reserve(_numberOfStars);
 		for (uint32 i = 0; i < _numberOfStars; i++)
 		{
 			float a = float_rand(0, 1) * 2 * M_PI;
@@ -43,8 +44,8 @@ Universe::Universe(uint32 numberOfGalaxies, float32 galaxyRadius, uint32 numberO
 			glm::mat4 spinMat(1.0f);
 			glm::vec4 spinVec(displacementX, displacementY, 0.0f, 0.0f);
 			spinMat = glm::rotate(spinMat, glm::radians(-90.0f), { 0.0f, 0.0f, 1.0f });
-			spinVec = INITIAL_SPIN_FACTOR * (spinMat * spinVec);
-
+			spinVec = INITIAL_SPIN_FACTOR * (spinMat * glm::normalize(spinVec));
+			
 			_stars.push_back({
 				starIndex++,
 				PARTICLE_MASS,
@@ -55,7 +56,13 @@ Universe::Universe(uint32 numberOfGalaxies, float32 galaxyRadius, uint32 numberO
 		}
 
 #ifdef ADD_BLACK_HOLE
-		_stars.push_back({ BLACK_HOLE_MASS,{ galaxy.center.x, galaxy.center.y, 0.0f } });
+		_stars.push_back({
+			starIndex++,
+			BLACK_HOLE_MASS,
+			make_float3( galaxy.center.x, galaxy.center.y, 0.0f ),
+			make_float3(0.0f,0.0f,0.0f),
+			make_float3(0.0f,0.0f,0.0f),
+			});
 #endif
 	}
 
@@ -101,12 +108,16 @@ void Universe::step(float deltaTime)
 		_root->insertStar(&star);
 	}
 
+#ifdef DRAW_QUADTREE
+	_quadTreeVerts.clear();
+	_root->getQuadTreeVerts(_quadTreeVerts);
+#endif
+
 	// Computing Mass Distribution
 	_root->computeMassDistribution();
 
 	// Traversing and populating the array that will go to GPU
 	std::vector<Node> gpuQuadTree(_numberOfNodes);
-	QuadTreeNode* currentNode = _root;
 	_root->traverseAndPopulate(gpuQuadTree.data());
 
 	// Upload the CPU made tree to the GPU
@@ -117,7 +128,7 @@ void Universe::step(float deltaTime)
 	computeForce <<< ceil(_totalStars /(float)BLOCKSIZE), BLOCKSIZE >>>
 		(_dStars, _dNodes, maxCellRadius, _totalStars);
 
-	integrate <<< ceil(_totalStars / (float)BLOCKSIZE), BLOCKSIZE >> >
+	integrate <<< ceil(_totalStars / (float)BLOCKSIZE), BLOCKSIZE >>>
 		(_dStars, _totalStars, deltaTime);
 
 	// Downloading stars data back from the GPU
@@ -125,6 +136,7 @@ void Universe::step(float deltaTime)
 	cudaMemcpy(_stars.data(), _dStars, _totalStars * sizeof(Star), cudaMemcpyDeviceToHost);
 
 	QuadTreeNode::s_idCounter = 0;
+	delete _root;
 }
 
 std::vector<glm::vec3> Universe::getVertices() const
